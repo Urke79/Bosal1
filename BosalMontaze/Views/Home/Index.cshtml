@@ -1,0 +1,97 @@
+﻿<div id="container" class="container">
+    <div class="custom-calendar-wrap custom-calendar-full">
+        <div id="header" class="custom-header clearfix">
+           <!-- <h2>Flexible Calendar <span><span>Demo 1</span> | <a href="index2.html">Demo 2</a></span></h2>-->
+            <h3 class="custom-month-year">
+                <span id="custom-month" class="custom-month"></span>
+                <span id="custom-year" class="custom-year"></span>
+                <nav>
+                    <span id="custom-prev" class="custom-prev"></span>
+                    <span id="custom-next" class="custom-next"></span>
+                    <span id="custom-current" class="custom-current" title="Got to current date"></span>
+                </nav>
+            </h3>
+        </div>
+        <div id="calendar" class="fc-calendar-container"></div>
+    </div>
+</div><!-- /container -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Montaza</h4>
+                <input type="hidden" class="js-jobId"/>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form id="montazaForma" class="form-horizontal" role="form">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="adresa">Adresa</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Adresa" id="adresa" placeholder="Adresa" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="radnik">Radnik</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Radnik" id="radnik" placeholder="Radnik" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="vreme">Vreme</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Vreme" id="vreme" placeholder="Vreme" required />
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="js-delete btn btn-default" data-dismiss="modal">Obrisi</button>
+                <button type="button" class="js-cancel btn btn-default" data-dismiss="modal">Zatvori</button>
+                <button type="submit" class="js-save btn btn-primary">Sacuvaj</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/calendarioJS")
+    <script type="text/javascript">
+        $(function () {
+            setUpCalendar();
+            $('#vreme').timepicki({
+                show_meridian: false,
+                min_hour_value: 0,
+                max_hour_value: 23,
+                step_size_minutes: 5,
+                overflow_minutes: true,
+                increase_direction: 'up',
+                disable_keyboard_mobile: true,
+                start_time: ["00", "00", "AM"]
+            });           
+        });
+    </script>
+}
+
+

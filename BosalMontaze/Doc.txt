@@ -1,0 +1,18 @@
+﻿1. Disable-ovani su svi bootstrap stilovi koji se pojavljuju na index stranici gde je kalendar.
+2. bootstrap se koristi samo za pop-up dijalog
+3. setDate() metoda je izmenjena u jquery.calendario.js fajlu (287 linija). 
+	Ona aktivira renderovanje calendar body-ja, pa moras ponovo da dodas event-e kada je pozoves.
+4. dodat je toastr.js za prikazivanje obavestenja
+5. svi moji custom stilovi su dodati u fajl calendar.css
+6. timepicki koristim za unos vremena (http://senthilraj.github.io/TimePicki/index.html)
+
+
+// TODO
+
+Kad se deploy odradi, izgube se svi stilovi ovog kalendara,
+MOzda se restore-uje bootstrap. ???
+vidi kako da pregazis njegove stilove (!important ??)
+
+-- Izgubi se onaj lepi stil kada dodajes evente na danasnji datum
+
+-- Neka druga baza (sql express) mora kada deploy odradis
