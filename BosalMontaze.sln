@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BosalMontaze.Web", "BosalMontaze\BosalMontaze.Web.csproj", "{2D238C99-7B02-495A-A039-80914ACE1393}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{96CC327A-D875-4FEF-9A06-72DABAEFE4E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{D960BB52-957D-456A-BFCD-72DC6E867439}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorsClient", "CorsClient\CorsClient.csproj", "{285F839C-E235-4937-8A1D-7A272C91E67E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +27,11 @@ Global
 		{D960BB52-957D-456A-BFCD-72DC6E867439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D960BB52-957D-456A-BFCD-72DC6E867439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D960BB52-957D-456A-BFCD-72DC6E867439}.Release|Any CPU.Build.0 = Release|Any CPU
-		{285F839C-E235-4937-8A1D-7A272C91E67E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{285F839C-E235-4937-8A1D-7A272C91E67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{285F839C-E235-4937-8A1D-7A272C91E67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{285F839C-E235-4937-8A1D-7A272C91E67E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAC1DD70-8D14-465E-9CD6-E8A404E51505}
 	EndGlobalSection
 EndGlobal

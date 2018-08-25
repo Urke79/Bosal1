@@ -3,7 +3,6 @@ using Domain;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace BosalMontaze.Controllers
 {
@@ -20,7 +19,6 @@ namespace BosalMontaze.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("api/Jobs/GetEventsForMonth/{month}/{year}")]
-        //[EnableCors("http://localhost:54369", "*", "GET")]
         public IEnumerable<JobsCountForSpecificDate> Get(int month, int year)
         {
            return  _jobRepository.GetCalendarEventsData(month, year);                   
