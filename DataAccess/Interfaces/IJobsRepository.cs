@@ -13,7 +13,7 @@ namespace DataAccess.Api
 
         bool DeleteJob(int id);
 
-        bool AddJob(MontazaSaveRequest montazaSaveRequest);
-        bool EditJob(MontazaSaveRequest montazaSaveRequest);
+        bool AddJob(Montaza montaza);
+        bool EditJob(Montaza montaza);
     }
 }

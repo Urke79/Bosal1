@@ -46,18 +46,18 @@ namespace BosalMontaze.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("api/Jobs/AddJob")]
-        public bool Post(MontazaSaveRequest montazaSaveRequest)
+        public bool Post(Montaza montaza)
         {
-            return _jobRepository.AddJob(montazaSaveRequest);
+            return _jobRepository.AddJob(montaza);
         }
 
         // PUT api/Jobs/EditJob
         [AllowAnonymous]
         [HttpPut]
         [Route("api/Jobs/EditJob")]
-        public bool Put([FromBody]MontazaSaveRequest montazaSaveRequest)
+        public bool Put([FromBody]Montaza montaza)
         {
-            return _jobRepository.EditJob(montazaSaveRequest);
+            return _jobRepository.EditJob(montaza);
         }
 
         // DELETE api/Jobs/DeleteJob/id

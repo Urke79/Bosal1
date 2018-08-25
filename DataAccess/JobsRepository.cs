@@ -78,16 +78,9 @@ namespace DataAccess
             return isDeleted;
         }
 
-        public bool AddJob(MontazaSaveRequest montazaSaveRequest)
+        public bool AddJob(Montaza montaza)
         {
             var isSaved = false;
-            var montaza = new Montaza
-            {
-                Adresa = montazaSaveRequest.Adresa,
-                Datum = montazaSaveRequest.Datum,
-                Radnik = montazaSaveRequest.Radnik,
-                Vreme = montazaSaveRequest.Vreme
-            };
 
             using (var db = new BosalMontazeDbContext())
             {
@@ -99,20 +92,20 @@ namespace DataAccess
             return isSaved;
         }
 
-        public bool EditJob(MontazaSaveRequest montazaSaveRequest)
+        public bool EditJob(Montaza montaza)
         {
             var isUpdated = false;
 
             using (var db = new BosalMontazeDbContext())
             {
-                var mon = db.Montaze.Find(montazaSaveRequest.MontazaId);
+                var mon = db.Montaze.Find(montaza.MontazaId);
 
                 if (mon != null)
                 {
                     // update properties
-                    mon.Radnik = montazaSaveRequest.Radnik;
-                    mon.Adresa = montazaSaveRequest.Adresa;
-                    mon.Vreme = montazaSaveRequest.Vreme;
+                    mon.Radnik = montaza.Radnik;
+                    mon.Adresa = montaza.Adresa;
+                    mon.Vreme = montaza.Vreme;
 
                     db.Entry(mon).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
