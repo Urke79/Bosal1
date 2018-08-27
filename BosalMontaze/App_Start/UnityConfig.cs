@@ -1,4 +1,6 @@
+using DataAccess.Entities;
 using Microsoft.Practices.Unity;
+using System.Data.Entity;
 using System.Web.Http;
 using Unity.WebApi;
 
@@ -18,6 +20,8 @@ namespace BosalMontaze
                         AllClasses.FromLoadedAssemblies(),
                         WithMappings.FromMatchingInterface,
                         WithName.Default);
+
+            container.RegisterType<DbContext, BosalMontazeDbContext>(new PerThreadLifetimeManager());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
