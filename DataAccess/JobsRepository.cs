@@ -61,8 +61,7 @@ namespace DataAccess
             if (montaza != null)
             {
                 _context.Montaze.Remove(montaza);
-                _context.SaveChanges();
-                isDeleted = true;
+                isDeleted = Save();
             }
 
             return isDeleted;
@@ -71,14 +70,14 @@ namespace DataAccess
         public bool AddJob(Montaza montaza)
         {
             _context.Montaze.Add(montaza);
-            var rowsSaved = _context.SaveChanges();
+            var isAdded = Save();
 
-            return rowsSaved > 0;
+            return isAdded;
         }
 
         public bool EditJob(Montaza montaza)
         {
-            var rowsUpdated = 0;
+            var isUpdated = false;
 
             var mon = _context.Montaze.Find(montaza.MontazaId);
 
@@ -90,10 +89,15 @@ namespace DataAccess
                 mon.Vreme = montaza.Vreme;
 
                 _context.Entry(mon).State = System.Data.Entity.EntityState.Modified;
-                rowsUpdated = _context.SaveChanges();
+                isUpdated = Save();
             }
 
-            return rowsUpdated > 0;
+            return isUpdated;
+        }
+
+        private bool Save()
+        {
+            return _context.SaveChanges() > 0;
         }
     }
 }

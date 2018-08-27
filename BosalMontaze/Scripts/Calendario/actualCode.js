@@ -159,7 +159,7 @@ function setUpCalendar() {
         calendarRow.after('<div id="js-eventDiv" class="fc-row"></div>');
 
         // insert button inside of events div
-        $("#js-eventDiv").append('<button data-toggle="modal" class="js-addNewJob btn btn-primary btn-sm" style="float:right; margin-top:1%;" data-target="#myModalHorizontal">Dodaj</button>');
+        $("#js-eventDiv").append('<button data-toggle="modal" class="js-addNewJob btn btn-primary btn-sm" style="float:right; margin-top:1%;" data-target="#myModalHorizontal">Add</button>');
        
         // fade in effect simulation :)
         $("#js-eventDiv").hide();
@@ -266,12 +266,12 @@ function setUpCalendar() {
                 if (result === true) {
                     $(".js-cancel").click(); // close modal
                     refreshCalendarEventsData().done(function () {
-                        toastr.success("Obrisano.");
+                        toastr.success("Event has been deleted.");
                         resetModalDialogControls();
                     });
                 }
                 else {
-                    toastr.error("Greska prilikom brisanja.");
+                    toastr.error("Error deleting event!");
                 }
             }
         });
@@ -289,12 +289,12 @@ function setUpCalendar() {
             if (isSaved) {
                 $(".js-cancel").click(); // close modal
                 refreshCalendarEventsData().done(function (result) {
-                    toastr.success("Event je dodat u kalendar.");
+                    toastr.success("Event has been added.");
                     resetModalDialogControls();
                 });
             }
             else
-                toastr.error("Greska prilikom dodavanja event-a.");
+                toastr.error("Error adding event!");
         });
     }
 
@@ -317,12 +317,12 @@ function setUpCalendar() {
                 if (isEdited === true) {
                     $(".js-cancel").click(); // close modal
                     refreshCalendarEventsData().done(function () {
-                        toastr.success("Event je editovan.");
+                        toastr.success("Event is updated.");
                         resetModalDialogControls();
                     });
                 }
                 else {
-                    toastr.error("Greska prilikom editovanja.");
+                    toastr.error("Error updating event!");
                 }
             }
         });
