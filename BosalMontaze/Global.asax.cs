@@ -16,6 +16,7 @@ namespace BosalMontaze
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             UnityConfig.RegisterComponents();
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

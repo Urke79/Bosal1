@@ -4,8 +4,7 @@ using Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using System.IO;
-using System.Diagnostics;
+using Logging;
 
 namespace DataAccess
 {
@@ -23,19 +22,26 @@ namespace DataAccess
         {
             var dateCountList = new List<JobsCountForSpecificDate>();
 
-            // Get data from the db
-            var query = _context.Montaze.Where(x => x.Datum.Month == month && x.Datum.Year == year).GroupBy(x => x.Datum,
-                x => x, (key, group) => new { Date = key, Count = group.Count() });
-
-            var calendarEventsNumberPerDate = query.ToList();
-
-            // put data into domain model
-            foreach (var item in calendarEventsNumberPerDate)
+            try
             {
-                var jobDate = new JobsCountForSpecificDate { Date = string.Format("{0:MM-dd-yyyy}", item.Date), Count = item.Count };
-                dateCountList.Add(jobDate);
-            }
+                // Get data from the db
+                var query = _context.Montaze.Where(x => x.Datum.Month == month && x.Datum.Year == year).GroupBy(x => x.Datum,
+                    x => x, (key, group) => new { Date = key, Count = group.Count() });
 
+                var calendarEventsNumberPerDate = query.ToList();
+
+                // put data into domain model
+                foreach (var item in calendarEventsNumberPerDate)
+                {
+                    var jobDate = new JobsCountForSpecificDate { Date = string.Format("{0:MM-dd-yyyy}", item.Date), Count = item.Count };
+                    dateCountList.Add(jobDate);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error getting the calendar events. Error message: " + e.Message, e);
+            }
+            
             return dateCountList;
         }
 
@@ -60,8 +66,15 @@ namespace DataAccess
 
             if (montaza != null)
             {
-                _context.Montaze.Remove(montaza);
-                isDeleted = Save();
+                try
+                {
+                    _context.Montaze.Remove(montaza);
+                    isDeleted = Save();
+                }
+                catch (Exception e)
+                {
+                    Log.Error("Deleting of montaza with id of " + id + " failed. Error message: " + e.Message, e);
+                }           
             }
 
             return isDeleted;
@@ -69,9 +82,18 @@ namespace DataAccess
 
         public bool AddJob(Montaza montaza)
         {
-            _context.Montaze.Add(montaza);
-            var isAdded = Save();
+            var isAdded = false;
 
+            try
+            {
+                _context.Montaze.Add(montaza);
+                isAdded = Save();
+            }
+            catch (Exception e)
+            {
+                Log.Error("Adding of montaza failed. Error message: " + e.Message, e);
+            }
+            
             return isAdded;
         }
 
@@ -83,13 +105,21 @@ namespace DataAccess
 
             if (mon != null)
             {
-                // update properties
-                mon.Radnik = montaza.Radnik;
-                mon.Adresa = montaza.Adresa;
-                mon.Vreme = montaza.Vreme;
+                try
+                {
+                    // update properties
+                    mon.Radnik = montaza.Radnik;
+                    mon.Adresa = montaza.Adresa;
+                    mon.Vreme = montaza.Vreme;
+                    throw new Exception("Buljica moja");
 
-                _context.Entry(mon).State = System.Data.Entity.EntityState.Modified;
-                isUpdated = Save();
+                    _context.Entry(mon).State = System.Data.Entity.EntityState.Modified;
+                    isUpdated = Save();
+                }
+                catch (Exception e)
+                {
+                    Log.Error("Updating failed for montaza with ID: " + mon.MontazaId + "Error message: " + e.Message, e);
+                }             
             }
 
             return isUpdated;
