@@ -1,10 +1,12 @@
 ﻿using DataAccess.Api;
 using DataAccess.Entities;
-using Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 using Logging;
+using DataAccess.EntityModels;
+using Domain;
+using AutoMapper;
 
 namespace DataAccess
 {
@@ -12,10 +14,21 @@ namespace DataAccess
     public class JobsRepository : IJobsRepository
     {
         private BosalMontazeDbContext _context { get; }
+        private IMapper mapper;
 
         public JobsRepository(BosalMontazeDbContext context)
         {
+            InitializeMapper();
             _context = context;
+        }
+
+        private void InitializeMapper()
+        {
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<MontazaEntity, Montaza>().ReverseMap();            
+            });
+
+            mapper = config.CreateMapper();
         }
 
         public IEnumerable<JobsCountForSpecificDate> GetCalendarEventsData(int month, int year)
@@ -49,14 +62,14 @@ namespace DataAccess
         {
             var calendarEvents = _context.Montaze.Where(m => m.Datum == date).ToList();
 
-            return calendarEvents;
+            return mapper.Map<List<Montaza>>(calendarEvents);
         }
 
         public Montaza GetJobBy(int id)
         {
             var montaza = _context.Montaze.Find(id);
 
-            return montaza;
+            return mapper.Map<Montaza>(montaza);
         }
 
         public bool DeleteJob(int id)
@@ -86,7 +99,8 @@ namespace DataAccess
 
             try
             {
-                _context.Montaze.Add(montaza);
+                var montazaEntity = mapper.Map<MontazaEntity>(montaza);
+                _context.Montaze.Add(montazaEntity);
                 isAdded = Save();
             }
             catch (Exception e)
@@ -101,24 +115,19 @@ namespace DataAccess
         {
             var isUpdated = false;
 
-            var mon = _context.Montaze.Find(montaza.MontazaId);
+            var montazaEntity = _context.Montaze.Find(montaza.MontazaId);
 
-            if (mon != null)
+            if (montazaEntity != null)
             {
                 try
                 {
-                    // update properties
-                    mon.Radnik = montaza.Radnik;
-                    mon.Adresa = montaza.Adresa;
-                    mon.Vreme = montaza.Vreme;
-                    throw new Exception("Buljica moja");
-
-                    _context.Entry(mon).State = System.Data.Entity.EntityState.Modified;
+                    montazaEntity = mapper.Map(montaza, montazaEntity);                   
+                    _context.Entry(montazaEntity).State = System.Data.Entity.EntityState.Modified;
                     isUpdated = Save();
                 }
                 catch (Exception e)
                 {
-                    Log.Error("Updating failed for montaza with ID: " + mon.MontazaId + "Error message: " + e.Message, e);
+                    Log.Error("Updating failed for montaza with ID: " + montazaEntity.MontazaId + "Error message: " + e.Message, e);
                 }             
             }
 

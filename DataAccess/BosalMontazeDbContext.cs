@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using DataAccess.EntityModels;
 using System.Data.Entity;
 using System.Diagnostics;
 
@@ -11,7 +11,7 @@ namespace DataAccess.Entities
             Database.Log = sql => Debug.Write(sql);
         }
 
-        public DbSet<Montaza> Montaze { get; set; }
+        public DbSet<MontazaEntity> Montaze { get; set; }
 
        
     }
