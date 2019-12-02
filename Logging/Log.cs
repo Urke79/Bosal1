@@ -2,18 +2,11 @@
 
 namespace Logging
 {
-    public class Log
+    public static class Log
     {
-        private static readonly Log _instance = new Log();
-        protected ILog monitoringLogger;
-        protected static ILog debugLogger;
-
-        private Log()
-        {
-            monitoringLogger = LogManager.GetLogger("MonitoringLogger");
-            debugLogger = LogManager.GetLogger("DebugLogger");
-        }
-
+        private static ILog monitoringLogger = LogManager.GetLogger("MonitoringLogger");
+        private static ILog debugLogger = LogManager.GetLogger("DebugLogger");
+    
         /// <summary>  
         /// Used to log Debug messages in an explicit Debug Logger  
         /// </summary>  
@@ -41,7 +34,7 @@ namespace Logging
         /// <param name="message">The object message to log</param>  
         public static void Info(string message)
         {
-            _instance.monitoringLogger.Info(message);
+            monitoringLogger.Info(message);
         }
 
 
@@ -52,7 +45,7 @@ namespace Logging
         /// <param name="exception">The exception to log, including its stack trace </param>  
         public static void Info(string message, System.Exception exception)
         {
-            _instance.monitoringLogger.Info(message, exception);
+            monitoringLogger.Info(message, exception);
         }
 
         /// <summary>  
@@ -61,7 +54,7 @@ namespace Logging
         /// <param name="message">The object message to log</param>  
         public static void Warn(string message)
         {
-            _instance.monitoringLogger.Warn(message);
+            monitoringLogger.Warn(message);
         }
 
         /// <summary>  
@@ -71,7 +64,7 @@ namespace Logging
         /// <param name="exception">The exception to log, including its stack trace </param>  
         public static void Warn(string message, System.Exception exception)
         {
-            _instance.monitoringLogger.Warn(message, exception);
+            monitoringLogger.Warn(message, exception);
         }
 
         /// <summary>  
@@ -80,7 +73,7 @@ namespace Logging
         /// <param name="message">The object message to log</param>  
         public static void Error(string message)
         {
-            _instance.monitoringLogger.Error(message);
+            monitoringLogger.Error(message);
         }
 
         /// <summary>  
@@ -90,7 +83,7 @@ namespace Logging
         /// <param name="exception">The exception to log, including its stack trace </param>  
         public static void Error(string message, System.Exception exception)
         {
-            _instance.monitoringLogger.Error(message, exception);
+            monitoringLogger.Error(message, exception);
         }
 
 
@@ -100,7 +93,7 @@ namespace Logging
         /// <param name="message">The object message to log</param>  
         public static void Fatal(string message)
         {
-            _instance.monitoringLogger.Fatal(message);
+            monitoringLogger.Fatal(message);
         }
 
         /// <summary>  
@@ -110,7 +103,7 @@ namespace Logging
         /// <param name="exception">The exception to log, including its stack trace </param>  
         public static void Fatal(string message, System.Exception exception)
         {
-            _instance.monitoringLogger.Fatal(message, exception);
+            monitoringLogger.Fatal(message, exception);
         }
     }
 }
