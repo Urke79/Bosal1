@@ -9,6 +9,7 @@ obj/
 .vs/
 
 /Release/
+BosalMontaze/Logs/
 
 *.mdf
 *.ldf
