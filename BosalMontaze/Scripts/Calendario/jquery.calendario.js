@@ -177,7 +177,7 @@
 						today = false;
 					}
 
-					var cellClasses = today ? 'fc-today ' : '';
+					var cellClasses = today ? 'fc-today js-today' : '';
 					if( content !== '' ) {
 						cellClasses += 'fc-content';
 					}

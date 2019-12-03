@@ -143,7 +143,7 @@ function setUpCalendar() {
         var calendarRow = dateDiv.parents(".fc-row").first();
 
         // set only one active dateCell
-        $(".js-activeDate").removeClass();
+        $(".js-activeDate").removeClass('js-activeDate');
         dateDiv.addClass("js-activeDate");
 
         // set lower border invisible for all nodes in a row
@@ -151,6 +151,7 @@ function setUpCalendar() {
 
         // set lower border for all date cells in a row 
         calendarRow.children().css("box-shadow", "-1px -1px 0px rgba(255, 255, 255, 0.2) inset");
+        $(calendarRow).children().last().css("box-shadow", "0px -1px 0px rgba(255, 255, 255, 0.2) inset");
 
         // set lower border invisible for the active date cell
         dateDiv.css("box-shadow", "-1px 0px 0px rgba(255, 255, 255, 0.2) inset");
@@ -168,10 +169,13 @@ function setUpCalendar() {
 
     function refreshLowerBorders() {
         // set lower border visible for row in which the active date is in
-        $(".js-activeDate").parents(".fc-row").first().css("box-shadow", "0px -1px 0px rgba(255, 255, 255, 0.2) inset");
-
+        $(".js-activeDate").parents(".fc-row").first().css("box-shadow", "0px 0px 0px rgba(255, 255, 255, 0.2) inset");
         // set lower border for the active date cell
-        $(".js-activeDate").css("box-shadow", "-1px -1px 0px rgba(255, 255, 255, 0.2) inset")
+        $(".js-activeDate").css("box-shadow", "-1px -1px 0px rgba(255, 255, 255, 0.2) inset");
+        // set box shadow for active date
+        $(".js-today").css("box-shadow", "inset -1px -1px 100px");
+        // hide lower border for last row
+        $(".fc-body").children(".fc-row").last().children().css("box-shadow", "-1px 0px 0px rgba(255, 255, 255, 0.2) inset").last().css("box-shadow", "0px 0px");
     }
 
     function getEventsForSpecificDate(date) {
