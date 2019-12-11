@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BosalMappingProfile.cs" />
     <Compile Include="BosalMontazeDbContext.cs" />
     <Compile Include="EntityModels\MontazaEntity.cs" />
     <Compile Include="Interfaces\IJobsRepository.cs" />

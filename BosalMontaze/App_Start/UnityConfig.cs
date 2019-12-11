@@ -1,3 +1,5 @@
+using AutoMapper;
+using DataAccess;
 using DataAccess.Entities;
 using Microsoft.Practices.Unity;
 using System.Data.Entity;
@@ -23,6 +25,14 @@ namespace BosalMontaze
 
             container.RegisterType<DbContext, BosalMontazeDbContext>(new PerThreadLifetimeManager());
 
+            // register Automapper
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new BosalMappingProfile());
+            });
+
+            container.RegisterInstance(config.CreateMapper());
+               
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

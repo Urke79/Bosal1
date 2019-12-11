@@ -14,21 +14,12 @@ namespace DataAccess
     public class JobsRepository : IJobsRepository
     {
         private BosalMontazeDbContext _context { get; }
-        private IMapper mapper;
+        private IMapper _mapper;
 
-        public JobsRepository(BosalMontazeDbContext context)
+        public JobsRepository(BosalMontazeDbContext context, IMapper mapper)
         {
-            InitializeMapper();
             _context = context;
-        }
-
-        private void InitializeMapper()
-        {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<MontazaEntity, Montaza>().ReverseMap();            
-            });
-
-            mapper = config.CreateMapper();
+            _mapper = mapper;
         }
 
         public IEnumerable<JobsCountForSpecificDate> GetCalendarEventsData(int month, int year)
@@ -62,14 +53,14 @@ namespace DataAccess
         {
             var calendarEvents = _context.Montaze.Where(m => m.Datum == date).ToList();
 
-            return mapper.Map<List<Montaza>>(calendarEvents);
+            return _mapper.Map<List<Montaza>>(calendarEvents);
         }
 
         public Montaza GetJobBy(int id)
         {
             var montaza = _context.Montaze.Find(id);
 
-            return mapper.Map<Montaza>(montaza);
+            return _mapper.Map<Montaza>(montaza);
         }
 
         public bool DeleteJob(int id)
@@ -99,7 +90,7 @@ namespace DataAccess
 
             try
             {
-                var montazaEntity = mapper.Map<MontazaEntity>(montaza);
+                var montazaEntity = _mapper.Map<MontazaEntity>(montaza);
                 _context.Montaze.Add(montazaEntity);
                 isAdded = Save();
             }
@@ -121,7 +112,7 @@ namespace DataAccess
             {
                 try
                 {
-                    montazaEntity = mapper.Map(montaza, montazaEntity);                   
+                    montazaEntity = _mapper.Map(montaza, montazaEntity);                   
                     _context.Entry(montazaEntity).State = System.Data.Entity.EntityState.Modified;
                     isUpdated = Save();
                 }
