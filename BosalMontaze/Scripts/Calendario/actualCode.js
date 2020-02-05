@@ -18,7 +18,7 @@ function setUpCalendar() {
     function refreshCalendarEventsData() {
         var $d = $.Deferred();
            
-        $.getJSON("/api/Jobs/GetEventsForMonth/" + cal.getMonth() + "/" + cal.getYear()).done(function (data) {
+        $.getJSON("/api/jobs/events/" + cal.getMonth() + "/" + cal.getYear()).done(function (data) {
             if (data) {
                 // clear events count spans and events
                 $(".js-eventCount").remove();
@@ -180,7 +180,7 @@ function setUpCalendar() {
 
     function getEventsForSpecificDate(date) {
         var $d = $.Deferred(),
-            url = "/api/Jobs/" + date;
+            url = "/api/jobs/events/" + date;
 
         $.getJSON(url).done(function (data) {
             if (data && data.length > 0) {
@@ -200,7 +200,7 @@ function setUpCalendar() {
     // modal
     function populateModalWithJobData(id) {
         var $d = $.Deferred(),
-               url = "/api/Jobs/GetSingleJob/" + id;
+               url = "/api/jobs/" + id;
 
         $.getJSON(url).done(function (data) {
             if (data) {
@@ -264,7 +264,7 @@ function setUpCalendar() {
     // Crud
     function deleteJob(id) {
         $.ajax({
-            url: 'api/Jobs/DeleteJob/' + id,
+            url: 'api/jobs/' + id,
             type: 'DELETE',
             success: function (result) {
                 if (result === true) {
@@ -283,7 +283,7 @@ function setUpCalendar() {
 
     function addJob() {
 
-        var url = "/api/Jobs/AddJob",
+        var url = "/api/jobs",
             // serialize form input data and add Date to query string
             encodedQueryString = $('#montazaForma').serialize() + '&Datum=' + selectedDate,
             // decode query string (because of time which has %3A instead of ':')
@@ -304,7 +304,7 @@ function setUpCalendar() {
 
     function editJob() {
 
-        var url = "/api/Jobs/EditJob",
+        var url = "/api/jobs",
            data = {
                MontazaId: $(".js-jobId").val(),
                Adresa: $("#adresa").val(),
